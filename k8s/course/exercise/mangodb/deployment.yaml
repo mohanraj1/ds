@@ -1,0 +1,20 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mangodb-deployment
+spec:
+  selector:
+    matchLabels:
+      app: mangodbapp
+  replicas: 4
+  template:
+    metadata:
+      labels:
+        app: mangodbapp
+    spec:
+      containers:
+      - name: mangodb
+        image: mongo:bionic
+        ports:
+        - containerPort: 27017
+      

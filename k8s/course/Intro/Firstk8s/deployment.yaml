@@ -1,0 +1,27 @@
+# defines one deployment - tomcat-deployment
+# key things to look into here are image name, replica, container port 
+# 1 replica (1 instance of docker image-tomcat v9.0)
+# default to docker hub for image location to download
+# We need to let K8 that tomcat 9.0 exposes a port 8080. tomcat listens on 8080 by default
+# Need to expose any port in the deployment to outside world. 
+# kubectl expose deployment tomcat-deployment --type=NodePort
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: tomcat-deployment
+spec:
+  selector:
+    matchLabels:
+      app: tomcat
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: tomcat
+    spec:
+      containers:
+      - name: tomcat
+        image: tomcat:9.0
+        ports:
+        - containerPort: 8080
+        

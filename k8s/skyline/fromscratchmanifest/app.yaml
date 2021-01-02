@@ -1,0 +1,38 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: gowebapi
+  labels:
+    app: gowebapi
+spec:
+  type: LoadBalancer
+  ports:
+  - port: 8080
+  selector:
+    app: gowebapi
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+# name of the deployment
+  name: gowebapi
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: gowebapi
+  template:
+    metadata:
+      labels:
+        #we can use this to refer to node
+        app: gowebapi
+    spec:
+      containers:
+      - name: gowebapi
+        image: mohandacr1.azurecr.io/golangwebapi:v1.0
+        resources:
+          limits:
+            memory: "128Mi"
+            cpu: "500m"
+        ports:
+        - containerPort: 8080
