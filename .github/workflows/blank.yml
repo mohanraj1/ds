@@ -25,4 +25,4 @@ jobs:
     - uses: Azure/k8s-deploy@v1
       with:
         manifests: |
-          KubernetesManifest/nginx.yml
+          k8s/skyline/KubernetesManifest/nginx.yml
