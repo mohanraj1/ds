@@ -1,8 +1,8 @@
 name: Deploy to AKS
 
 env:
-  k8sclustername: skylines92
-  resourceGroupName: skylines-rg
+  k8sclustername: mohandk9
+  resourceGroupName: mohandresources
 
 on:
   push:
