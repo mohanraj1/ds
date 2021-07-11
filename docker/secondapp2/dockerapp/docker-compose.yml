@@ -1,0 +1,32 @@
+# version 2 is latest and it supports volume etc
+version: '2'
+# define services (dockerapp and redis)
+# each service, we provide info on how to build and run the container
+services:
+  dockerapp:
+    # build instructions - provides dockerfile path
+    # . => current directory
+    build: .
+    # ports : which port to expose external n/w
+    # host port:container port
+    ports: 
+      - "5004:5000"
+    # designated directory in a container
+    # to persist data irrespective of container lifecycle
+    # share data between container and host machine
+    # defined as host directory: container directory. no need for COPY command in docker file
+    volumes:
+      # host dir:container dir
+      # With this if we change the file in app directory in the host machine, container will see it without 
+      #   building the image
+      - ./app:/app
+  redis:
+    # just provide image information. which image we need to run the container
+    # Either we build a image (like dockerapp above) or use the image to run a container
+    image: redis:3.2.0
+
+# link:
+#   version 2 provides docker network feature allows container to discover other container using name
+#   no need to define link between dockerapp and redis. containers are discovered using service name
+
+
